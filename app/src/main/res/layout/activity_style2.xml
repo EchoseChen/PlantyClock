@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ecnu.plantyclock.activities.StyleActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragment_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tabs_rg" />
+
+    <RadioGroup
+        android:id="@+id/tabs_rg"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_alignParentBottom="true"
+        android:background="#CFF1A8"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/weather"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/tab_weather_selector"
+            android:checked="true"
+            android:text="Weather" />
+
+        <RadioButton
+            android:id="@+id/clock"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/tab_alarm_selector"
+            android:text="Clock" />
+
+    </RadioGroup>
+    <ImageView
+        android:id="@+id/farmer"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/farmer"/>
+
+</RelativeLayout>

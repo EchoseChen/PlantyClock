@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/cloud"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/leaf_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp" >
+
+        <com.ecnu.plantyclock.util.leafloading.LeafLoadingView
+            android:id="@+id/leaf_loading"
+            android:layout_width="302dp"
+            android:layout_height="61dp"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/fan_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="35dp"
+            android:src="@drawable/fengshan" />
+    </RelativeLayout>
+
+            <Button
+                android:id="@+id/clear_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/delete_progress_btn_text"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/add_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/increase_the_progress_btn_text"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/text_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#FFFF"
+                    android:textSize="15dp" />
+            </LinearLayout>
+        </LinearLayout>

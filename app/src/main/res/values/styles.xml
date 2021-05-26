@@ -1,0 +1,70 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomButton" parent="Theme.AppCompat.Light">
+        <!-- 点击高亮时背景颜色 -->
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <!-- 按钮正常背景颜色 -->
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+
+    <!-- 自定义控件风格-->
+    <style name="Custom" />
+
+    <style name="Custom.TabRadioButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#4CAF50</item>
+    </style>
+
+    <style name="AppTheme1" parent="AppTheme.Base"/>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="actionModeBackground">@color/primary</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="AlarmTheme" parent="AppTheme" >
+        <item name="android:listDivider">@drawable/divider_02</item>
+        <item name="android:popupMenuStyle">@style/Theme.PopupMenu</item>
+        <item name="popupMenuStyle">@style/Theme.PopupMenu</item>>
+        <item name="colorPrimary">@color/primary_green</item>
+        <item name="android:colorBackground">@color/background_tiny_grey</item>
+        <item name="colorAccent">@color/accent_alarm</item>
+        <item name="android:windowBackground">@color/background_alarm_white</item>
+    </style>
+
+    <style name="Theme.PopupMenu"
+        parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@color/primary</item>
+    </style>
+</resources>
