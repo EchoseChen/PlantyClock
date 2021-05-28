@@ -1,5 +1,6 @@
 package com.ecnu.plantyclock.Weather;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,8 +59,21 @@ public class WeatherFragment extends Fragment {
     private EditText editText;
     private Button btn_chaxun;
     private TextView qiehuan;
+    private String weatherCon;
 
     private SharedPreferences sharedPreferences;
+
+
+    private CallBackInterface callBackInterface;
+    public interface CallBackInterface{
+        public void gettValues(String str);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        callBackInterface = (CallBackInterface) getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -164,8 +179,6 @@ public class WeatherFragment extends Fragment {
 
 
     /**
-     * 请求
-     *注意请将秘钥替换为：自己到京东万象申请秘钥
      * @param cityName 城市名称
      */
     private void selectWeather(String cityName) {
@@ -177,10 +190,11 @@ public class WeatherFragment extends Fragment {
             public void onResponse(JSONObject jsonObject) {
                 Gson gson = new Gson();
                 weatherBean = gson.fromJson(jsonObject.toString(), WeatherBean.class);
-
                 if(weatherBean.getResult().getHeWeather5().get(0).getStatus().equals("unknown location")){
                     Toast.makeText(getActivity(), "输入城市有误", Toast.LENGTH_SHORT).show();
                 }else {
+                    weatherCon = weatherBean.getResult().getHeWeather5().get(0).getNow().getCond().getTxt();
+                    callBackInterface.gettValues(weatherCon);
                     tv_zhunagtai.setText(weatherBean.getResult().getHeWeather5().get(0).getNow().getCond().getTxt());
                     sheshidu.setText(weatherBean.getResult().getHeWeather5().get(0).getNow().getTmp() + "℃");
                     fengxiang.setText(weatherBean.getResult().getHeWeather5().get(0).getNow().getWind().getDir());
@@ -208,6 +222,7 @@ public class WeatherFragment extends Fragment {
                     recyclerView2.setAdapter(reAdapter2);
                     tv_cityName.setText(weatherBean.getResult().getHeWeather5().get(0).getBasic().getCity());
                     //生活指数部分
+
                     tv1.setText("舒适度指数：" + weatherBean.getResult().getHeWeather5().get(0).getSuggestion().getComf().getBrf());
                     tv2.setText("洗车指数：" + weatherBean.getResult().getHeWeather5().get(0).getSuggestion().getCw().getBrf());
                     tv3.setText("穿衣指数：" + weatherBean.getResult().getHeWeather5().get(0).getSuggestion().getDrsg().getBrf());

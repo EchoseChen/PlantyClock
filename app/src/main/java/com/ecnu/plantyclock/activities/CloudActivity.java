@@ -2,13 +2,17 @@ package com.ecnu.plantyclock.activities;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,26 +24,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ecnu.plantyclock.R;
 import com.ecnu.plantyclock.db.Plant;
 import com.ecnu.plantyclock.service.TreeAnimation;
+import com.ecnu.plantyclock.service.ViewAnimation;
 import com.ecnu.plantyclock.util.leafloading.AnimationUtils;
 import com.ecnu.plantyclock.util.leafloading.LeafLoadingView;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by ChenLu on 2021/5/25
- * Use for snow weather
+ * Use for Cloud weather
  */
 public class CloudActivity extends AppCompatActivity{
 
     private ImageView image;//image是climate小图
     private RelativeLayout addBill;//fab按钮点击后弹出的布局
-    private ImageView image1;
-    private ImageView image2;
-    private ImageView image3;
+    private LinearLayout tools;//隐藏按钮
+
+    private SoundPool soundPool;
+    private HashMap<Integer,Integer> soundMap;
+
+    private ImageView image1;//jianzhi
+    private ImageView image2;//water
+    private ImageView image3;//dig
+    private ImageView image4;//drug
+    private ImageView image5;//protect
+    private ImageView image6;//fertilizer
+
+    private int soundID1;
+    private int soundID2;
+    private int soundID3;
+    private int soundID4;
+    private int soundID5;
+    private int soundID6;
+    private int soundID7;
+    private int soundID8;
+
+
     private ImageView back;
-    private ImageView Tree;
     private boolean isAdd = false;
     private int[] llId = new int[]{R.id.ll01,R.id.ll02,R.id.ll03};
     private LinearLayout[] ll = new LinearLayout[llId.length];
@@ -68,11 +92,14 @@ public class CloudActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cloud_layout);
         initView();
+        initSound();
         setDefaultValues();
+
         //悬浮按钮操作
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                soundPool.play(soundID8,1,1,0,0,1);
                 isAdd = !isAdd;
                 addBill.setVisibility(isAdd ? View.VISIBLE : View.GONE);
                 if (isAdd) {
@@ -95,6 +122,12 @@ public class CloudActivity extends AppCompatActivity{
             public void onClick(View view) {
                 hideFABMenu();
                 showFAB();
+            }
+        });
+        tools.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tools.setVisibility(View.GONE);
             }
         });
 
@@ -170,25 +203,31 @@ public class CloudActivity extends AppCompatActivity{
     }
 
 
-
-
     //实例化控件
     private void initView(){
+
+        soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM,5);
+        soundMap = new HashMap<Integer, Integer>();
         image = (ImageView)findViewById(R.id.farm_climate);
         image1 = (ImageView)findViewById(R.id.miniImage01);
         image2 = (ImageView)findViewById(R.id.miniImage02);
         image3 = (ImageView)findViewById(R.id.miniImage03);
+        image4 = (ImageView)findViewById(R.id.miniImage04);
+        image5 = (ImageView)findViewById(R.id.miniImage05);
+        image6 = (ImageView)findViewById(R.id.miniImage06);
+        tools = (LinearLayout)findViewById(R.id.extras);
+
         back = (ImageView)findViewById(R.id.back);
         addBill = (RelativeLayout)findViewById(R.id.addBill);
         img_plant = (ImageView)findViewById(R.id.plant);
 
         mProgressText = (TextView) findViewById(R.id.text_progress);
         numText= (TextView)findViewById(R.id.num);
-        mLeafLoadingView = (LeafLoadingView) findViewById(R.id.leaf_loading);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soundPool.play(soundID8,1,1,0,0,1);
                 Intent intent = new Intent(CloudActivity.this,StyleActivity.class);
                 startActivity(intent);
             }
@@ -196,7 +235,11 @@ public class CloudActivity extends AppCompatActivity{
         img_plant.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                soundPool.play(soundID8,1,1,0,0,1);
                 img_plant.startAnimation(TreeAnimation.getAnimation());
+                TranslateAnimation animation = ViewAnimation.enterAnimation("right");
+                tools.startAnimation(animation);
+                tools.setVisibility(View.VISIBLE);
             }
         });
 
@@ -208,6 +251,7 @@ public class CloudActivity extends AppCompatActivity{
             @Override
             public void onClick(View view){
                 executeAnimation(view);
+                soundPool.play(soundID1,1,1,0,0,1);
                 img_plant.startAnimation(TreeAnimation.getAnimation());
                 if(!boolean4&&!boolean1){
                     boolean1 = true;
@@ -220,6 +264,7 @@ public class CloudActivity extends AppCompatActivity{
                 if(progress>=100){
                     progress=0;
                     num+=1;
+                    soundPool.play(soundID7,1,1,0,0,1);
                 }
                 mLeafLoadingView.setProgress(progress);
                 mProgressText.setText(String.valueOf(progress)+"%");
@@ -235,6 +280,7 @@ public class CloudActivity extends AppCompatActivity{
             @Override
             public void onClick(View view){
                 executeAnimation(view);
+                soundPool.play(soundID2,1,1,0,0,1);
                 img_plant.startAnimation(TreeAnimation.getAnimation());
                 if(!boolean4&&!boolean2){
                     boolean2 = true;
@@ -247,6 +293,7 @@ public class CloudActivity extends AppCompatActivity{
                 if(progress>=100){
                     progress=0;
                     num+=1;
+                    soundPool.play(soundID7,1,1,0,0,1);
                 }
                 mLeafLoadingView.setProgress(progress);
                 mProgressText.setText(String.valueOf(progress)+"%");
@@ -261,6 +308,7 @@ public class CloudActivity extends AppCompatActivity{
             @Override
             public void onClick(View view){
                 executeAnimation(view);
+                soundPool.play(soundID3,1,1,0,0,1);
                 img_plant.startAnimation(TreeAnimation.getAnimation());
                 if(!boolean4&&!boolean3){
                     boolean3 = true;
@@ -273,6 +321,7 @@ public class CloudActivity extends AppCompatActivity{
                 if(progress>=100){
                     progress=0;
                     num+=1;
+                    soundPool.play(soundID7,1,1,0,0,1);
                 }
                 mLeafLoadingView.setProgress(progress);
                 mProgressText.setText(String.valueOf(progress)+"%");
@@ -286,14 +335,109 @@ public class CloudActivity extends AppCompatActivity{
 
 
 
+
+        image4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                executeAnimation(view);
+                soundPool.play(soundID4,1,1,0,0,1);
+                img_plant.startAnimation(TreeAnimation.getAnimation());
+                progress++;
+                if(progress>=100){
+                    progress=0;
+                    num+=1;
+                    soundPool.play(soundID7,1,1,0,0,1);
+                }
+                mLeafLoadingView.setProgress(progress);
+                mProgressText.setText(String.valueOf(progress)+"%");
+                numText.setText(String.valueOf(num));
+                plant = DataSupport.findFirst(Plant.class);
+                plant.setProgress(progress);
+                plant.save();
+                changePlant(plant);
+            }
+        });
+
+        image5.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                executeAnimation(view);
+                soundPool.play(soundID5,1,1,0,0,1);
+                img_plant.startAnimation(TreeAnimation.getAnimation());
+                progress++;
+                if(progress>=100){
+                    progress=0;
+                    num+=1;
+                    soundPool.play(soundID7,1,1,0,0,1);
+                }
+                mLeafLoadingView.setProgress(progress);
+                mProgressText.setText(String.valueOf(progress)+"%");
+                numText.setText(String.valueOf(num));
+                plant = DataSupport.findFirst(Plant.class);
+                plant.setProgress(progress);
+                plant.save();
+                changePlant(plant);
+            }
+        });
+
+        image6.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                executeAnimation(view);
+                soundPool.play(soundID6,1,1,0,0,1);
+                img_plant.startAnimation(TreeAnimation.getAnimation());
+                progress++;
+                if(progress>=100){
+                    progress=0;
+                    num+=1;
+                    soundPool.play(soundID7,1,1,0,0,1);
+                }
+                mLeafLoadingView.setProgress(progress);
+                mProgressText.setText(String.valueOf(progress)+"%");
+                numText.setText(String.valueOf(num));
+                plant = DataSupport.findFirst(Plant.class);
+                plant.setProgress(progress);
+                plant.save();
+                changePlant(plant);
+            }
+        });
+
+
+
+
         mFanView = findViewById(R.id.fan_pic);
         RotateAnimation rotateAnimation = AnimationUtils.initRotateAnimation(false, 1500, true,
                 Animation.INFINITE);
         mFanView.startAnimation(rotateAnimation);
+//        mClearButton = (Button) findViewById(R.id.clear_progress);
+//        mClearButton.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view){
+//                mLeafLoadingView.setProgress(0);
+//                progress = 0;
+//                mProgressText.setText(String.valueOf(progress));
+//                plant = DataSupport.findFirst(Plant.class);
+//                plant.setProgress(progress);
+//                plant.save();
+//                changePlant(plant);
+//            }
+//        });
 
+        mLeafLoadingView = (LeafLoadingView) findViewById(R.id.leaf_loading);
 
-
-
+//        mAddProgress = findViewById(R.id.add_progress);
+//        mAddProgress.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                progress++;
+//                mLeafLoadingView.setProgress(progress);
+//                mProgressText.setText(String.valueOf(progress)+"%");
+//                plant = DataSupport.findFirst(Plant.class);
+//                plant.setProgress(progress);
+//                plant.save();
+//                changePlant(plant);
+//            }
+//        });
 
     }
 
@@ -301,6 +445,19 @@ public class CloudActivity extends AppCompatActivity{
         addBillTranslate1 = (AnimatorSet) AnimatorInflater.loadAnimator(this,R.animator.add_bill_anim);
         addBillTranslate2 = (AnimatorSet) AnimatorInflater.loadAnimator(this,R.animator.add_bill_anim);
         addBillTranslate3 = (AnimatorSet) AnimatorInflater.loadAnimator(this,R.animator.add_bill_anim);
+    }
+
+    @SuppressLint("NewApi")
+    private void initSound(){
+        soundPool = new SoundPool.Builder().build();
+        soundID1 = soundPool.load(this,R.raw.jianzhi,1);
+        soundID2 = soundPool.load(this,R.raw.water,1);
+        soundID3 = soundPool.load(this,R.raw.songtu,1);
+        soundID4 = soundPool.load(this,R.raw.drug,1);
+        soundID5 = soundPool.load(this,R.raw.dapeng,1);
+        soundID6 = soundPool.load(this,R.raw.shifei,1);
+        soundID7 = soundPool.load(this,R.raw.finishplant,1);
+        soundID8 = soundPool.load(this,R.raw.click,1);
     }
 
 

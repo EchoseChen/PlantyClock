@@ -27,12 +27,18 @@ import com.ecnu.plantyclock.util.leafloading.LeafLoadingActivity;
  * Created by ChenLu on 2021/5/21
  * Use for 加载下框导航
  */
-public class StyleActivity extends AppCompatActivity {
+public class StyleActivity extends AppCompatActivity implements WeatherFragment.CallBackInterface{
+
+    public static final String TAG="StyleActivity";
+
+
     private ViewPager mViewPager;
     private RadioGroup mTabRadioGroup;
 
     private List<Fragment> mFragments;
     private FragmentPagerAdapter mAdapter;
+
+    private String weather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +68,28 @@ public class StyleActivity extends AppCompatActivity {
         findViewById(R.id.farmer).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StyleActivity.this, SunActivity.class));
+                Log.d(TAG,weather);
+                if(weather.equals("多云")||weather.equals("阴")){
+                    startActivity(new Intent(StyleActivity.this, CloudActivity.class));
+                }
+                else if(weather.equals("晴")){
+                    startActivity(new Intent(StyleActivity.this, SunActivity.class));
+                }
+                else if(weather.equals("雨夹雪")||weather.equals("小雪")){
+                    startActivity(new Intent(StyleActivity.this, SnowActivity.class));
+                }
+                else if(weather.equals("小雨")||weather.equals("中雨")||weather.equals("大雨")||weather.equals("雷阵雨")){
+                    startActivity(new Intent(StyleActivity.this, RainActivity.class));
+                }
+                else if(weather.equals("雾")){
+                    startActivity(new Intent(StyleActivity.this, FogActivity.class));
+                }
+                else{
+                    startActivity(new Intent(StyleActivity.this, SunActivity.class));
+                }
             }
         });
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -123,4 +146,12 @@ public class StyleActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void gettValues(String str){
+        weather = str;
+    }
+
+
+
 }
+

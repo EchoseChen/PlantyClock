@@ -155,7 +155,7 @@ public class weatheractivity extends AppCompatActivity {
 
     /**
      * 请求
-     *注意请将秘钥替换为：自己到京东万象申请秘钥
+     *到京东万象申请秘钥
      * @param cityName 城市名称
      */
     private void selectWeather(String cityName) {
