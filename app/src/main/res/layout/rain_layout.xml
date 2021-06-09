@@ -103,7 +103,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/farm_drug" />
+                android:src="@drawable/farm_jianzhi" />
         </LinearLayout>
 
         <LinearLayout
@@ -118,7 +118,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/farm_protect" />
+                android:src="@drawable/farm_water" />
         </LinearLayout>
 
         <LinearLayout
@@ -206,7 +206,7 @@
                 android:id="@+id/miniImage01"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                app:srcCompat="@drawable/farm_jianzhi" />
+                app:srcCompat="@drawable/farm_drug" />
 
 
         </LinearLayout>
@@ -243,7 +243,7 @@
                 android:id="@+id/miniImage02"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/farm_water" />
+                android:src="@drawable/farm_protect" />
         </LinearLayout>
 
         <LinearLayout

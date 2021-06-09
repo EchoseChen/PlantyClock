@@ -32,6 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.baidu.location.LocationClient;
 import com.ecnu.plantyclock.R;
 import com.ecnu.plantyclock.Weather.Bean.WeatherBean;
 import com.ecnu.plantyclock.Weather.adapter.ReAdapter;
@@ -64,6 +65,9 @@ public class WeatherFragment extends Fragment {
     private SharedPreferences sharedPreferences;
 
 
+
+
+
     private CallBackInterface callBackInterface;
     public interface CallBackInterface{
         public void gettValues(String str);
@@ -93,6 +97,8 @@ public class WeatherFragment extends Fragment {
 
 
 
+
+
         tv_cityName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +123,7 @@ public class WeatherFragment extends Fragment {
                     public void run() {
                         selectWeather(tv_cityName.getText().toString());
                     }
-                }, 3000);
+                }, 1000);
             }
         });
 
@@ -237,6 +243,7 @@ public class WeatherFragment extends Fragment {
                     tv55.setText("      " + weatherBean.getResult().getHeWeather5().get(0).getSuggestion().getSport().getTxt());
                     tv66.setText("      " + weatherBean.getResult().getHeWeather5().get(0).getSuggestion().getTrav().getTxt());
                     refreshLayout.setRefreshing(false);
+                    refreshLayout.setColorSchemeResources(R.color.colorPrimary);
                     Toast.makeText(getActivity(), "更新时间" + weatherBean.getResult().getHeWeather5().get(0).getBasic().getUpdate().getLoc(), Toast.LENGTH_SHORT).show();
 
                 }

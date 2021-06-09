@@ -118,7 +118,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/farm_protect" />
+                android:src="@drawable/farm_water" />
         </LinearLayout>
 
         <LinearLayout
@@ -243,7 +243,7 @@
                 android:id="@+id/miniImage02"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/farm_water" />
+                android:src="@drawable/farm_protect" />
         </LinearLayout>
 
         <LinearLayout

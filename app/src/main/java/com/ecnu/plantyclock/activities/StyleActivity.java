@@ -39,12 +39,15 @@ public class StyleActivity extends AppCompatActivity implements WeatherFragment.
     private FragmentPagerAdapter mAdapter;
 
     private String weather;
+    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_style2);
         initView();
+        Intent intent = getIntent();
+        city = intent.getStringExtra("city");
     }
 
     private void initView() {
