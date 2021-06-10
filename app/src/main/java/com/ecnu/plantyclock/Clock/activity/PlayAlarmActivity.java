@@ -39,8 +39,8 @@ public class PlayAlarmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            Intent intent1 = new Intent(this, MusicServer.class);
-            stopService(intent1);
+        Intent intent1 = new Intent(this, MusicServer.class);
+        stopService(intent1);
         setContentView(R.layout.activity_play_alarm);
         ActivityManager.addActivity(this);
 
@@ -213,11 +213,11 @@ public class PlayAlarmActivity extends AppCompatActivity {
             vibrator.cancel();
         }
         ActivityManager.removeActivity(this);
-        Intent intent1 = new Intent(this, MusicServer.class);
-        startService(intent1);
         super.onDestroy();
 
     }
+
+
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

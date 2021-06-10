@@ -26,6 +26,7 @@ import com.ecnu.plantyclock.Clock.AlarmService;
 import com.ecnu.plantyclock.Clock.Model.AlarmModel;
 import com.ecnu.plantyclock.R;
 import com.ecnu.plantyclock.Clock.data.MyAlarmDataBase;
+import com.ecnu.plantyclock.service.MusicServer;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -74,6 +75,8 @@ public class EditAlarmActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
+        Intent intent1 = new Intent(this, MusicServer.class);
+        stopService(intent1);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitleText = (EditText) findViewById(R.id.alarm_title);
@@ -546,5 +549,12 @@ public class EditAlarmActivity extends AppCompatActivity implements
             player.release();
         }
         super.onDestroy();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        Intent intent1 = new Intent(this, MusicServer.class);
+        stopService(intent1);
+
     }
 }
