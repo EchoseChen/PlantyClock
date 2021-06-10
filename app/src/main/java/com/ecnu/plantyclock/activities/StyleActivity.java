@@ -21,6 +21,7 @@ import com.ecnu.plantyclock.Clock.activity.ClockFragment;
 import com.ecnu.plantyclock.R;
 import com.ecnu.plantyclock.Weather.WeatherFragment;
 import com.ecnu.plantyclock.fragments.BlankFragment;
+import com.ecnu.plantyclock.service.MusicServer;
 import com.ecnu.plantyclock.util.leafloading.LeafLoadingActivity;
 
 /**
@@ -153,7 +154,11 @@ public class StyleActivity extends AppCompatActivity implements WeatherFragment.
     public void gettValues(String str){
         weather = str;
     }
-
+    protected void onResume(){
+        super.onResume();
+        Intent intent = new Intent(this,MusicServer.class);
+        startService(intent);
+    }
 
 
 }

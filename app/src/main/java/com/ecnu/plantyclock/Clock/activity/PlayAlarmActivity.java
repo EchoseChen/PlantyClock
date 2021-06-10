@@ -1,6 +1,7 @@
 package com.ecnu.plantyclock.Clock.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -18,6 +19,7 @@ import com.ecnu.plantyclock.Clock.Utils.ActivityManager;
 import com.ecnu.plantyclock.Clock.data.MyAlarmDataBase;
 import com.ecnu.plantyclock.Clock.fragment.NormalFragment;
 import com.ecnu.plantyclock.Clock.fragment.QuestionFragment;
+import com.ecnu.plantyclock.service.MusicServer;
 
 /**
  * Created by ChenLu on 2021/5/24
@@ -37,6 +39,8 @@ public class PlayAlarmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+            Intent intent1 = new Intent(this, MusicServer.class);
+            stopService(intent1);
         setContentView(R.layout.activity_play_alarm);
         ActivityManager.addActivity(this);
 
@@ -209,7 +213,10 @@ public class PlayAlarmActivity extends AppCompatActivity {
             vibrator.cancel();
         }
         ActivityManager.removeActivity(this);
+        Intent intent1 = new Intent(this, MusicServer.class);
+        startService(intent1);
         super.onDestroy();
+
     }
 
 

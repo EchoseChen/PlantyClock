@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ecnu.plantyclock.R;
 import com.ecnu.plantyclock.db.Plant;
+import com.ecnu.plantyclock.service.MusicServer;
 import com.ecnu.plantyclock.service.TreeAnimation;
 import com.ecnu.plantyclock.service.ViewAnimation;
 import com.ecnu.plantyclock.util.leafloading.AnimationUtils;
@@ -458,6 +459,11 @@ public class FogActivity extends AppCompatActivity{
         soundID6 = soundPool.load(this,R.raw.shifei,1);
         soundID7 = soundPool.load(this,R.raw.finishplant,1);
         soundID8 = soundPool.load(this,R.raw.click,1);
+    }
+    protected void onResume(){
+        super.onResume();
+        Intent intent = new Intent(this, MusicServer.class);
+        startService(intent);
     }
 
 

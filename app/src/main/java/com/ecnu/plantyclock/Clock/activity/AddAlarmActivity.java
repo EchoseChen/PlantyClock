@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +27,7 @@ import com.ecnu.plantyclock.Clock.AlarmService;
 import com.ecnu.plantyclock.Clock.Model.AlarmModel;
 import com.ecnu.plantyclock.R;
 import com.ecnu.plantyclock.Clock.data.MyAlarmDataBase;
+import com.ecnu.plantyclock.service.MusicServer;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -74,7 +76,8 @@ public class AddAlarmActivity extends AppCompatActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
-
+        Intent intent = new Intent(this, MusicServer.class);
+        stopService(intent);
         //初始化View
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitleText = (EditText) findViewById(R.id.alarm_title);
@@ -465,8 +468,11 @@ public class AddAlarmActivity extends AppCompatActivity implements
 
             case R.id.save_Alarm:
                 mTitleText.setText(mTitle);
-                if (mTitleText.getText().toString().length() == 0)
-                    mTitleText.setError("闹钟名不能为空");
+                if (mTitleText.getText().toString().length() == 0){
+                    CharSequence html1 = Html.fromHtml("<font color=#CFF1A8>闹钟名不能为空</font>");
+                    mTitleText.setError(html1);
+                }
+
                 else {
                     saveAlarm();
                     finish();
@@ -543,6 +549,11 @@ public class AddAlarmActivity extends AppCompatActivity implements
         Log.d("AddActivity", "用户取消创建Alarm");
 
         super.onBackPressed();
+    }
+    protected void onPause(){
+        super.onPause();
+        Intent intent1 = new Intent(this, MusicServer.class);
+        startService(intent1);
     }
 
     @Override

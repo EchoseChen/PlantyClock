@@ -23,6 +23,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.ecnu.plantyclock.R;
+import com.ecnu.plantyclock.service.MusicServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity{
 
-    MediaPlayer mp;
+//    MediaPlayer mp;
 
     //定位
     public LocationClient mLocationClient;
@@ -44,16 +45,18 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startAnimation();
+        Intent intent = new Intent(MainActivity.this, MusicServer.class);
+        startService(intent);
         //背景音
-        mp = MediaPlayer.create(this, R.raw.bg);
-        mp.start();
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer arg0) {
-                mp.start();
-                mp.setLooping(true);
-            }
-        });
+//        mp = MediaPlayer.create(this, R.raw.bg);
+//        mp.start();
+//        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer arg0) {
+//                mp.start();
+//                mp.setLooping(true);
+//            }
+//        });
         ImageView enter_button = (ImageView) findViewById(R.id.enter);
 
         //定位
@@ -128,4 +131,15 @@ public class MainActivity extends AppCompatActivity{
         }
 
     }
+    protected void onResume(){
+        super.onResume();
+        Intent intent = new Intent(MainActivity.this,MusicServer.class);
+        startService(intent);
+    }
+    protected void onStop(){
+        super.onStop();
+        Intent intent = new Intent(MainActivity.this,MusicServer.class);
+        stopService(intent);
+    }
+
 }
