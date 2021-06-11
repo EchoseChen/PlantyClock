@@ -55,7 +55,7 @@ public class NormalFragment extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
         String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-        String minute = null;
+        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
 
         int showHour = calendar.get(Calendar.HOUR_OF_DAY);
         int showMinute = calendar.get(Calendar.MINUTE);

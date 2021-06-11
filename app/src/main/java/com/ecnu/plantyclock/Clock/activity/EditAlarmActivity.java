@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
@@ -65,6 +66,7 @@ public class EditAlarmActivity extends AppCompatActivity implements
     private static final String KEY_RING = "ring_key";
     private static final String KEY_ACTIVE = "active_key";
     public static final String ALARM_ID = "Alarm_ID";
+    CharSequence html1;
 
 
 
@@ -475,8 +477,10 @@ public class EditAlarmActivity extends AppCompatActivity implements
 
             case R.id.save_Alarm:
                 mTitleText.setText(mTitle);
-                if (mTitleText.getText().toString().length() == 0)
-                    mTitleText.setError("闹钟名不能为空");
+                if (mTitleText.getText().toString().length() == 0){
+                    html1 = Html.fromHtml("<font color=#CFF1A8>闹钟名不能为空</font>");
+                    mTitleText.setError(html1);
+                }
                 else {
                     updateAlarm();
                 }
